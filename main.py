@@ -58,10 +58,9 @@ def utc_to_local(utc_datetime):
                (datetime.fromisoformat(utc_datetime))
     return exchange
 
-
 def save_file(df):
     global date_file, size
-    file_path = f'price_data_{date_file}.json'
+    file_path = f'data/price_data_{date_file}.json'
     file_size = os.stat(file_path).st_size
     if file_size > size:
         with open(file_path, 'w+') as f:
@@ -184,6 +183,8 @@ def start():
 
 
 start()
-
-text_message = 'Osrs price checker has stopped for some reason.'
-send_text(to=PHONE, message=text_message)
+try:
+    text_message = 'Osrs price checker has stopped for some reason.'
+    send_text(to=PHONE, message=text_message)
+except:
+    print("ERROR failed to send message. Check your API keys.")
